@@ -1,13 +1,18 @@
-<!-- handlers/form-handler.php -->
 <?php
-    $name = $_POST['name'] ?? '';
-    $comment = $_POST['comment'] ?? '';
+if(isset($_POST['submit'])) {
+    $data = [
+        'name' => $_POST['name'] ?? "",
+        'message' => $_POST['comment'] ?? "",
+    ];
 
-    if (!empty($name) && !empty($comment)) {
-        $data = "Name: $name\nComment: $comment\n";
-        file_put_contents('../data/comments.txt', $data, FILE_APPEND);
+    $file = fopen($_SERVER['DOCUMENT_ROOT'] . '../views/components/comments.txt', 'a') or die("Unable to open file!");
+    foreach ($data as $field => $value) {
+        fwrite($file, "$field: $value\n");
     }
+    fwrite($file, "\n");
+    fclose($file);
 
     header("Location: ../index.php");
-    exit();
+    exit;
+}
 ?>
