@@ -10,6 +10,7 @@ if(isset($_POST['submit'])) {
         fwrite($file, "$field: $value\n");
     }
     fwrite($file, "\n");
+    fwrite($file, "\n");
     fclose($file);
 
     header("Location: ../index.php");
